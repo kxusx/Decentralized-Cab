@@ -1,6 +1,6 @@
 import { useState } from 'react'
 import { useContext } from 'react'
-// import { UberContext } from '../context/uberContext'
+import { DOlaContext } from '../context/DOlaContext'
 
 const style = {
   wrapper: `pt-2`,
@@ -15,10 +15,7 @@ const style = {
 
 const LocationSelector = () => {
   const [inFocus, setInFocus] = useState('from')
-  const [pickup, setPickup] = useState('')
-  const [dropoff, setDropoff] = useState('')
-  
-//  const { pickup, setPickup, dropoff, setDropoff } = useContext(UberContext)
+  const { pickup, setPickup, dropoff, setDropoff } = useContext(DOlaContext)
 
   return (
     <div className={style.wrapper}>

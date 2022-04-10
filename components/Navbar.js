@@ -1,9 +1,9 @@
 import Image from 'next/image'
 import avatar from '../temp/avatar.jpg'
 import { BsPerson } from 'react-icons/bs'
-// import { useContext } from 'react'
-// import { UberContext } from '../context/uberContext'
-import React from 'react'
+import { useContext } from 'react'
+import { DOlaContext } from '../context/DOlaContext'
+
 const style = {
   wrapper: `h-16 w-full bg-black text-white flex md:justify-around items-center px-60 fixed z-20`,
   leftMenu: `flex gap-3`,
@@ -16,22 +16,20 @@ const style = {
   loginText: `ml-2`,
 }
 
- const currentAccount='0x7521B34e6707e2380f09fCE7D2165E2c0ddEfde7'
-// const currentAccount=''  
 const Navbar = () => {
-//   const { currentAccount, connectWallet, currentUser } = useContext(UberContext)
+  const { currentAccount, connectWallet, currentUser } = useContext(DOlaContext)
 
   return (
     <div className={style.wrapper}>
       <div className={style.leftMenu}>
-        <div className={style.logo}>D-Ola</div>
+        <div className={style.logo}>DOla</div>
         <div className={style.menuItem}>Ride</div>
         <div className={style.menuItem}>Drive</div>
         <div className={style.menuItem}>More</div>
       </div>
       <div className={style.rightMenu}>
         <div className={style.menuItem}>Help</div>
-        <div className={style.menuItem}>KHUSH </div>
+        <div className={style.menuItem}>{currentUser.name?.split(' ')[0]}</div>
         <div className={style.userImageContainer}>
           <Image
             className={style.userImage}
