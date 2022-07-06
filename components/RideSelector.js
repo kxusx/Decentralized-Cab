@@ -6,7 +6,7 @@ import uberSelect from '../assets/rides/uberSelect.png'
 import uberX from '../assets/rides/uberX.png'
 import uberXL from '../assets/rides/uberXL.png'
 import { useEffect, useContext, useState } from 'react'
-// import { UberContext } from '../context/uberContext'
+// import { DOlaContext } from '../context/DOlaContext'
 
 const style = {
   wrapper: `h-full flex flex-col`,
@@ -22,60 +22,34 @@ const style = {
   price: `mr-[-0.8rem]`,
 }
 
-const carList = [ 
-  {
-    service: 'uberX',
-    iconUrl: uberX,
-    priceMultiplier: 1,
-  },
-  {
-    service: 'uberXL',
-    iconUrl: uberXL,
-    priceMultiplier: 1.5,
-  },
-  {
-    service: 'uberBlack',
-    iconUrl: uberBlack,
-    priceMultiplier: 1,
-  },
-  {
-    service: 'uberBlackSuv',
-    iconUrl: uberBlackSuv,
-    priceMultiplier: 1.5,
-  },
-  {
-    service: 'uberSelect',
-    iconUrl: uberSelect,
-    priceMultiplier: 1,
-  }
-]
+
 const basePrice = 6000
 const RideSelector = () => {
-  // const [carList, setCarList] = useState([])
-  // const { selectedRide, setSelectedRide, setPrice, basePrice } = useContext(UberContext)
+  const [carList, setCarList] = useState([])
+  // const { selectedRide, setSelectedRide, setPrice, basePrice } = useContext(DOlaContext)
 
-  // console.log(basePrice)
+  console.log(basePrice)
 
-  // useEffect(() => {
-  //   ;(async () => {
-  //     try {
-  //       const response = await fetch('/api/db/getRideTypes')
+  useEffect(() => {
+    ;(async () => {
+      try {
+        const response = await fetch('/api/db/getRideTypes')
 
-  //       const data = await response.json()
-  //       setCarList(data.data)
-  //       setSelectedRide(data.data[0])
-  //     } catch (error) {
-  //       console.error(error)
-  //     }
-  //   })()
-  // }, [])
+        const data = await response.json()
+        setCarList(data.data)
+        setSelectedRide(data.data[0])
+      } catch (error) {
+        console.error(error)
+      }
+    })()
+  }, [])
 
   return (
     <div className={style.wrapper}>
       <div className={style.title}>Choose a ride, or swipe up for more</div>
       <div className={style.carList}>
         {carList.map((car, index) => (
-          <div className={style.car}>
+          <div key = {index} className={style.car}>
             <Image
               src={car.iconUrl}
               className={style.carImage}
