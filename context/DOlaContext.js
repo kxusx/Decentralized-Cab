@@ -72,7 +72,7 @@ export const DOlaProvider = ({ children }) => {
     if (!window.ethereum) return
     try {
       const addressArray = await window.ethereum.request({
-        method: 'eth_requestAccounts',
+            method: 'eth_requestAccounts',
       })
 
       if (addressArray.length > 0) {

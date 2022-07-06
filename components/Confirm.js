@@ -1,7 +1,7 @@
 import RideSelector from './RideSelector'
 import { useContext } from 'react'
-// import { UberContext } from '../context/uberContext'
-// import { ethers } from 'ethers'
+import { DOlaContext } from '../context/DOlaContext'
+import { ethers } from 'ethers'
 
 const style = {
   wrapper: `flex-1 h-full flex flex-col justify-between`,
@@ -11,16 +11,16 @@ const style = {
 }
 
 const Confirm = () => {
-//   const {
-//     currentAccount,
-//     pickup,
-//     dropoff,
-//     price,
-//     selectedRide,
-//     pickupCoordinates,
-//     dropoffCoordinates,
-//     metamask,
-//   } = useContext(UberContext)
+  const {
+    currentAccount,
+    pickup,
+    dropoff,
+    price,
+    selectedRide,
+    pickupCoordinates,
+    dropoffCoordinates,
+    metamask,
+  } = useContext(DOlaContext)
 
   const storeTripDetails = async (pickup, dropoff) => {
     try {
@@ -50,6 +50,7 @@ const Confirm = () => {
         ],
       })
     } catch (error) {
+      console.log("hello");
       console.error(error)
     }
   }
@@ -57,7 +58,7 @@ const Confirm = () => {
   return (
     <div className={style.wrapper}>
       <div className={style.rideSelectorContainer}>
-        {<RideSelector />}
+        {pickupCoordinates && dropoffCoordinates && <RideSelector />}
       </div>
       <div className={style.confirmButtonContainer}>
         <div className={style.confirmButtonContainer}>
@@ -65,7 +66,7 @@ const Confirm = () => {
             className={style.confirmButton}
             onClick={() => storeTripDetails(pickup, dropoff)}
           >
-            Confirm 
+            Confirm {selectedRide.service || 'DOlaX'}
           </div>
         </div>
       </div>

@@ -1,12 +1,7 @@
 import Image from 'next/image'
 import ethLogo from '../assets/eth-logo.png'
-import uberBlack from '../assets/rides/uberBlack.png'
-import uberBlackSuv from '../assets/rides/uberBlackSuv.png'
-import uberSelect from '../assets/rides/uberSelect.png'
-import uberX from '../assets/rides/uberX.png'
-import uberXL from '../assets/rides/uberXL.png'
 import { useEffect, useContext, useState } from 'react'
-// import { DOlaContext } from '../context/DOlaContext'
+import { DOlaContext } from '../context/DOlaContext'
 
 const style = {
   wrapper: `h-full flex flex-col`,
@@ -22,11 +17,10 @@ const style = {
   price: `mr-[-0.8rem]`,
 }
 
-
-const basePrice = 6000
 const RideSelector = () => {
   const [carList, setCarList] = useState([])
-  // const { selectedRide, setSelectedRide, setPrice, basePrice } = useContext(DOlaContext)
+  const { selectedRide, setSelectedRide, setPrice, basePrice } =
+    useContext(DOlaContext)
 
   console.log(basePrice)
 
@@ -49,7 +43,18 @@ const RideSelector = () => {
       <div className={style.title}>Choose a ride, or swipe up for more</div>
       <div className={style.carList}>
         {carList.map((car, index) => (
-          <div key = {index} className={style.car}>
+          <div
+            key={index}
+            className={`${
+              selectedRide.service === car.service
+                ? style.selectedCar
+                : style.car
+            }`}
+            onClick={() => {
+              setSelectedRide(car)
+              setPrice(((basePrice / 10 ** 5) * car.priceMultiplier).toFixed(5))
+            }}
+          >
             <Image
               src={car.iconUrl}
               className={style.carImage}
